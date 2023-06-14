@@ -28,6 +28,7 @@ sbit ADC_CFG = 0xDE; // ADC配置寄存器
 uint16 ADC_Value = 0; // ADC转换结果
 int16 tmp = 0;		// 转换温度值
 uint32 voltage = 0; // 实际电压值
+uint8 Beep_flag = 1; // 蜂鸣器标志
 
 /* ---------------------------------- 扩展变量 ---------------------------------- */
 /* None. */
@@ -75,7 +76,43 @@ void Sampl()
 	ADC_Value |= ADC_RESL >> 4;
 
 	voltage = VCC * (uint32)ADC_Value / ADC_RES_12BIT; // 电压值
-	tmp = NTC_TempValue_Calculate(voltage);
+	tmp = NTC_TempValue_Calculate(voltage); // 通过公式求得温度、
+	
+	if (tmp >= 28)
+	{
+		P0 &= 0x0F;
+	}
+	else if (tmp >= 26)
+	{
+		P0 |= 0xF0;
+		P0 &= 0x1F;
+	}
+	else if (tmp >= 24)
+	{
+		P0 |= 0xF0;
+		P0 &= 0x3F;
+	}
+	else if (tmp >= 22)
+	{
+		P0 |= 0xF0;
+		P0 &= 0x7F;
+	}
+	else
+	{
+		P0 |= 0xF0;
+		P0 &= 0xFF;
+	}
+
+	// 温度大于29℃，蜂鸣器鸣叫2s
+	if (tmp < 29)
+	{
+		Beep_flag = 1;
+	}
+	else if (tmp > 29 && Beep_flag)
+	{
+		Beep_flag = 0;
+		Beep(2000);
+	}
 
 	ADC_CONTR &= 0xDF; //清除ADC转换完成标志位
 }

@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   STC8AX_ISR                                                        06/14/2023 10:49:17 PAGE 1   
+C51 COMPILER V9.60.0.0   STC8AX_ISR                                                        06/14/2023 21:15:01 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE STC8AX_ISR
@@ -62,7 +62,7 @@ line level    source
   51   1          TL0 = 0x30;
   52   1          TR0 = 1; // ¿ªÖÐ¶Ï
   53   1      }
-C51 COMPILER V9.60.0.0   STC8AX_ISR                                                        06/14/2023 10:49:17 PAGE 2   
+C51 COMPILER V9.60.0.0   STC8AX_ISR                                                        06/14/2023 21:15:01 PAGE 2   
 
   54          
   55          /*>>>>>>>>>> (C) COPYRIGHT NBUFE <<<<<< >>>>>> END OF FILE <<<<<<<<<<*/

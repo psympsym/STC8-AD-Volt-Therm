@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   STC8AX_INIT                                                       06/14/2023 10:49:16 PAGE 1   
+C51 COMPILER V9.60.0.0   STC8AX_INIT                                                       06/14/2023 21:15:00 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE STC8AX_INIT
@@ -53,59 +53,65 @@ line level    source
   42           */
   43          void System_Init()
   44          {
-  45   1          // 初始化P0端口的所有引脚为浮空输入模式
-  46   1          GPIO_Init(GPIO_P0, Pin_Low, GPIO_MODE_IN_FLOATING);
+  45   1          // 初始化P00端口引脚为浮空输入模式
+  46   1          GPIO_Init(GPIO_P0, Pin_0, GPIO_MODE_IN_FLOATING);
   47   1      
-  48   1          // 初始化P1端口的所有引脚为推挽输出模式
-  49   1          GPIO_Init(GPIO_P1, Pin_All, GPIO_MODE_OUT_PP);
+  48   1              // 初始化P0端口的高四位引脚为推挽输出模式
+  49   1          GPIO_Init(GPIO_P0, Pin_High, GPIO_MODE_OUT_PP);
   50   1      
-  51   1          // 初始化P2端口的所有引脚为推挽输出模式
-  52   1          GPIO_Init(GPIO_P2, Pin_All, GPIO_MODE_OUT_PP);
+  51   1          // 初始化P1端口的所有引脚为推挽输出模式
+  52   1          GPIO_Init(GPIO_P1, Pin_All, GPIO_MODE_OUT_PP);
   53   1      
-C51 COMPILER V9.60.0.0   STC8AX_INIT                                                       06/14/2023 10:49:16 PAGE 2   
+C51 COMPILER V9.60.0.0   STC8AX_INIT                                                       06/14/2023 21:15:00 PAGE 2   
 
-  54   1          AD_Init();
-  55   1              Time0_Config();
-  56   1              UART1_Init();
-  57   1      }
-  58          
-  59          /**
-  60           *
-  61           * 功能：初始化外围设备
-  62           * 参数：None
-  63           * 返回：None
-  64           * 说明：
-  65           */
-  66          void Time0_Config() //初始化外围
-  67          {
-  68   1          //1毫秒@24.000MHz
-  69   1          AUXR &= 0x7F;               //定时器时钟12T模式
-  70   1          TMOD &= 0xF0;               //设置定时器模式
-  71   1          TL0 = 0x30;                 //设置定时初始值
-  72   1          TH0 = 0xF8;                 //设置定时初始值
-  73   1              ET0 = 1;
-  74   1          TF0 = 0;                    //清除TF0标志
-  75   1          TR0 = 1;                    //定时器0开始计时
-  76   1      }
-  77          
-  78          /* 第二区 初始化外围 */
-  79          /**
-  80           *
-  81           * 功能：初始化外围设备
-  82           * 参数：None
-  83           * 返回：None
-  84           * 说明：
-  85           */
-  86          void Peripheral_Init() //初始化外围
-  87          {
-  88   1          EA = 1;//打开串口中断和总中断允许
-  89   1      }
-  90          
-  91          /*>>>>>>>>>> (C) COPYRIGHT NBUFE <<<<<< >>>>>> END OF FILE <<<<<<<<<<*/
+  54   1          // 初始化P2端口的所有引脚为推挽输出模式
+  55   1          GPIO_Init(GPIO_P2, Pin_All, GPIO_MODE_OUT_PP);
+  56   1      
+  57   1          // 初始化P3口的所有引脚为推挽输出模式
+  58   1          GPIO_Init(GPIO_P3, Pin_All, GPIO_MODE_OUT_PP);
+  59   1      
+  60   1          AD_Init();
+  61   1              Time0_Config();
+  62   1              UART1_Init();
+  63   1      }
+  64          
+  65          /**
+  66           *
+  67           * 功能：初始化外围设备
+  68           * 参数：None
+  69           * 返回：None
+  70           * 说明：
+  71           */
+  72          void Time0_Config() //初始化外围
+  73          {
+  74   1          //1毫秒@24.000MHz
+  75   1          AUXR &= 0x7F;               //定时器时钟12T模式
+  76   1          TMOD &= 0xF0;               //设置定时器模式
+  77   1          TL0 = 0x30;                 //设置定时初始值
+  78   1          TH0 = 0xF8;                 //设置定时初始值
+  79   1              ET0 = 1;
+  80   1          TF0 = 0;                    //清除TF0标志
+  81   1          TR0 = 1;                    //定时器0开始计时
+  82   1      }
+  83          
+  84          /* 第二区 初始化外围 */
+  85          /**
+  86           *
+  87           * 功能：初始化外围设备
+  88           * 参数：None
+  89           * 返回：None
+  90           * 说明：
+  91           */
+  92          void Peripheral_Init() //初始化外围
+  93          {
+  94   1          EA = 1;//打开串口中断和总中断允许
+  95   1      }
+  96          
+  97          /*>>>>>>>>>> (C) COPYRIGHT NBUFE <<<<<< >>>>>> END OF FILE <<<<<<<<<<*/
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     49    ----
+   CODE SIZE        =     61    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

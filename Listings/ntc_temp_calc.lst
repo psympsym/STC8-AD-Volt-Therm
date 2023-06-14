@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   NTC_TEMP_CALC                                                     06/14/2023 10:49:17 PAGE 1   
+C51 COMPILER V9.60.0.0   NTC_TEMP_CALC                                                     06/14/2023 21:15:01 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE NTC_TEMP_CALC
@@ -31,7 +31,7 @@ line level    source
   20          #define T25 (25 + 273.15) // T25 = 25 + 273.15
   21          #define R25 (10)          // 25摄氏度下对应的NTC电阻值为10千欧，注意此处单位为千欧，因此传入的Rntc单位也要
              -一致为千欧
-  22          #define RES_UP (5.0)     // 上拉采样电阻 RES_UP = 3.95K
+  22          #define RES_UP (5.0)     // 上拉采样电阻 RES_UP = 5.0K
   23          #define AVDD_MV (3300)    // AD电源电压 3300mv
   24          #define BX (3950)         // NTC 材料参数 B 值
   25          #define ABS_0 (273.15)    //
@@ -62,7 +62,7 @@ line level    source
   50           *         函数 log10(x) 以10为底的对数,即 lg(x),以其它数为底的对数用换底公式来表示
   51           *         此NTC温度计算公式只需要用到log这个函数即可。
   52           */
-C51 COMPILER V9.60.0.0   NTC_TEMP_CALC                                                     06/14/2023 10:49:17 PAGE 2   
+C51 COMPILER V9.60.0.0   NTC_TEMP_CALC                                                     06/14/2023 21:15:01 PAGE 2   
 
   53          int16 NTC_TempValue_Calculate(uint32 TempADCValue_mv)
   54          {

@@ -1,0 +1,74 @@
+C51 COMPILER V9.60.0.0   BEEP                                                              06/14/2023 21:15:01 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE BEEP
+OBJECT MODULE PLACED IN .\Objects\Beep.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE User\Beep.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\User;.\Drivers;.\STC8Ax_LIB\C
+                    -ore\Startup;.\STC8Ax_LIB\inc;.\STC8Ax_LIB\Core) DEBUG OBJECTEXTEND PRINT(.\Listings\Beep.lst) OBJECT(.\Objects\Beep.obj)
+
+line level    source
+
+   1          /*-------------------------------------------------------------------------------
+   2          /*       (C) Copyright 2023, PSYM. All Rights Reserved 
+   3          /*-------------------------------------------------------------------------------
+   4          /* File name   : Beep.c
+   5          /* Description : 
+   6          /* Author      : PSYM
+   7          /*-------------------------------------------------------------------------------
+   8          /* Update note:
+   9          /* -----------   -----------   --------------------------------------------------
+  10          /*    Date         Author                              Note
+  11          /* -----------   -----------   --------------------------------------------------
+  12          /* 2023-06-14       PSYM
+  13          /*   21:05
+  14          **/
+  15          
+  16          /* ---------------------------------- 包含头文件 ---------------------------------- */
+  17          #include "Beep.h"
+  18          
+  19          /* ---------------------------------- 私有宏定义 ---------------------------------- */
+  20          /* None. */
+  21          
+  22          /* ---------------------------------- 私有类型定义 ---------------------------------- */
+  23          sbit beep = P3 ^ 3; // 蜂鸣器IO口
+  24          
+  25          /* ---------------------------------- 私有变量 ---------------------------------- */
+  26          /* None. */
+  27          
+  28          /* ---------------------------------- 扩展变量 ---------------------------------- */
+  29          /* None. */
+  30          
+  31          /* ---------------------------------- 私有函数原型 ---------------------------------- */
+  32          /* None. */
+  33          
+  34          /* ---------------------------------- 函数体 ---------------------------------- */
+  35          
+  36          /**
+  37           * @brief: None
+  38           * @param: None
+  39           * @return: None
+  40           * @note: None
+  41           */
+  42          void Beep(uint16 ms)
+  43          {
+  44   1          beep = 0;
+  45   1          Delay_ms(ms);
+  46   1          beep = 1;
+  47   1      }
+  48          /*>>>>>>>>>> (C) COPYRIGHT PSYM <<<<<< >>>>>> END OF FILE <<<<<<<<<<*/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      8    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.0.0   BEEP                                                              06/14/2023 21:15:01 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

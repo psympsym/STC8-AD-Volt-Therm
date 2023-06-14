@@ -7,6 +7,7 @@
 ".\Objects\stc8Ax_ISR.obj",
 ".\Objects\uart_printf.obj",
 ".\Objects\ntc_temp_calc.obj",
-".\Objects\KeyScan.obj" 
+".\Objects\KeyScan.obj",
+".\Objects\Beep.obj" 
 TO ".\Objects\Project" 
 PRINT(".\Listings\Project.m51") RAMSIZE(256) 

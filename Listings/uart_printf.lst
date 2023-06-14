@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   UART_PRINTF                                                       06/14/2023 10:49:17 PAGE 1   
+C51 COMPILER V9.60.0.0   UART_PRINTF                                                       06/14/2023 21:15:01 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE UART_PRINTF
@@ -62,7 +62,7 @@ line level    source
   51           * 参数：str 要发送的字符串地址。
   52           * 返回：None.
   53          */
-C51 COMPILER V9.60.0.0   UART_PRINTF                                                       06/14/2023 10:49:17 PAGE 2   
+C51 COMPILER V9.60.0.0   UART_PRINTF                                                       06/14/2023 21:15:01 PAGE 2   
 
   54          char putchar(char ch)   //发送字符重定向函数
   55          {
@@ -126,7 +126,7 @@ line level    source
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =     77    ----
    CONSTANT SIZE    =   ----    ----
-C51 COMPILER V9.60.0.0   UART_PRINTF                                                       06/14/2023 10:49:17 PAGE 3   
+C51 COMPILER V9.60.0.0   UART_PRINTF                                                       06/14/2023 21:15:01 PAGE 3   
 
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

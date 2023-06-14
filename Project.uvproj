@@ -437,6 +437,11 @@
               <FileType>1</FileType>
               <FilePath>.\User\KeyScan.c</FilePath>
             </File>
+            <File>
+              <FileName>Beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\Beep.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

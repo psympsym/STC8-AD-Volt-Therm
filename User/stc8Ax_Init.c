@@ -42,14 +42,20 @@
  */
 void System_Init()
 {
-    // 初始化P0端口的所有引脚为浮空输入模式
-    GPIO_Init(GPIO_P0, Pin_Low, GPIO_MODE_IN_FLOATING);
+    // 初始化P00端口引脚为浮空输入模式
+    GPIO_Init(GPIO_P0, Pin_0, GPIO_MODE_IN_FLOATING);
+
+	// 初始化P0端口的高四位引脚为推挽输出模式
+    GPIO_Init(GPIO_P0, Pin_High, GPIO_MODE_OUT_PP);
 
     // 初始化P1端口的所有引脚为推挽输出模式
     GPIO_Init(GPIO_P1, Pin_All, GPIO_MODE_OUT_PP);
 
     // 初始化P2端口的所有引脚为推挽输出模式
     GPIO_Init(GPIO_P2, Pin_All, GPIO_MODE_OUT_PP);
+
+    // 初始化P3口的所有引脚为推挽输出模式
+    GPIO_Init(GPIO_P3, Pin_All, GPIO_MODE_OUT_PP);
 
     AD_Init();
 	Time0_Config();
