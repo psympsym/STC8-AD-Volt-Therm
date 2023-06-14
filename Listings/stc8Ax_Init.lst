@@ -1,0 +1,118 @@
+C51 COMPILER V9.60.0.0   STC8AX_INIT                                                       06/14/2023 10:49:16 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE STC8AX_INIT
+OBJECT MODULE PLACED IN .\Objects\stc8Ax_Init.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE User\stc8Ax_Init.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\User;.\Drivers;.\STC8A
+                    -x_LIB\Core\Startup;.\STC8Ax_LIB\inc;.\STC8Ax_LIB\Core) DEBUG OBJECTEXTEND PRINT(.\Listings\stc8Ax_Init.lst) OBJECT(.\Obj
+                    -ects\stc8Ax_Init.obj)
+
+line level    source
+
+   1          /*-------------------------------------------------------------------
+   2          /*      (C) Copyright 2021-2022, nbufe. All Rights Reserved
+   3          /*-------------------------------------------------------------------
+   4          /* File name   : STC8Ax_Init.c
+   5          /* Description :
+   6          /* Author      : nbufe
+   7          /*-------------------------------------------------------------------
+   8          /* Update note:
+   9          /* ---------   -----------   ----------------------------------------
+  10          /*   Date        Author                       Note
+  11          /* ---------   -----------   ----------------------------------------
+  12          /*
+  13          /*
+  14          **/
+  15          
+  16          /* 包含头文件 -------------------------------------------------------*/
+  17          #include "STC8Ax_INIT.h"
+  18          
+  19          /* 私有类型定义 -----------------------------------------------------*/
+  20          /* None. */
+  21          
+  22          /* 私有宏定义 -------------------------------------------------------*/
+  23          /* None. */
+  24          
+  25          /* 私有变量 ---------------------------------------------------------*/
+  26          /* None. */
+  27          
+  28          /* 扩展变量 ---------------------------------------------------------*/
+  29          /* None. */
+  30          
+  31          /* 私有函数原形 -----------------------------------------------------*/
+  32          /* None. */
+  33          
+  34          /* 函数体 -----------------------------------------------------------*/
+  35          
+  36          /* 第一区 初始化单片机 */
+  37          /**
+  38           * 功能：初始化单片机
+  39           * 参数：None
+  40           * 返回：None
+  41           * 说明：
+  42           */
+  43          void System_Init()
+  44          {
+  45   1          // 初始化P0端口的所有引脚为浮空输入模式
+  46   1          GPIO_Init(GPIO_P0, Pin_Low, GPIO_MODE_IN_FLOATING);
+  47   1      
+  48   1          // 初始化P1端口的所有引脚为推挽输出模式
+  49   1          GPIO_Init(GPIO_P1, Pin_All, GPIO_MODE_OUT_PP);
+  50   1      
+  51   1          // 初始化P2端口的所有引脚为推挽输出模式
+  52   1          GPIO_Init(GPIO_P2, Pin_All, GPIO_MODE_OUT_PP);
+  53   1      
+C51 COMPILER V9.60.0.0   STC8AX_INIT                                                       06/14/2023 10:49:16 PAGE 2   
+
+  54   1          AD_Init();
+  55   1              Time0_Config();
+  56   1              UART1_Init();
+  57   1      }
+  58          
+  59          /**
+  60           *
+  61           * 功能：初始化外围设备
+  62           * 参数：None
+  63           * 返回：None
+  64           * 说明：
+  65           */
+  66          void Time0_Config() //初始化外围
+  67          {
+  68   1          //1毫秒@24.000MHz
+  69   1          AUXR &= 0x7F;               //定时器时钟12T模式
+  70   1          TMOD &= 0xF0;               //设置定时器模式
+  71   1          TL0 = 0x30;                 //设置定时初始值
+  72   1          TH0 = 0xF8;                 //设置定时初始值
+  73   1              ET0 = 1;
+  74   1          TF0 = 0;                    //清除TF0标志
+  75   1          TR0 = 1;                    //定时器0开始计时
+  76   1      }
+  77          
+  78          /* 第二区 初始化外围 */
+  79          /**
+  80           *
+  81           * 功能：初始化外围设备
+  82           * 参数：None
+  83           * 返回：None
+  84           * 说明：
+  85           */
+  86          void Peripheral_Init() //初始化外围
+  87          {
+  88   1          EA = 1;//打开串口中断和总中断允许
+  89   1      }
+  90          
+  91          /*>>>>>>>>>> (C) COPYRIGHT NBUFE <<<<<< >>>>>> END OF FILE <<<<<<<<<<*/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     49    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,202 @@
+C51 COMPILER V9.60.0.0   UART                                                              06/08/2023 18:52:44 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN .\Objects\uart.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE User\uart.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\User;.\Drivers;.\STC8Ax_LIB\C
+                    -ore\Startup;.\STC8Ax_LIB\inc;.\STC8Ax_LIB\Core) DEBUG OBJECTEXTEND PRINT(.\Listings\uart.lst) OBJECT(.\Objects\uart.obj)
+
+line level    source
+
+   1          /*-------------------------------------------------------------------
+   2          /*      (C) Copyright 2021-2022, nbufe. All Rights Reserved 
+   3          /*-------------------------------------------------------------------
+   4          /* File name   : xxx.c
+   5          /* Description : 
+   6          /* Author      : nbufe
+   7          /*-------------------------------------------------------------------
+   8          /* Update note:
+   9          /* ---------   -----------   ----------------------------------------
+  10          /*   Date        Author                       Note
+  11          /* ---------   -----------   ----------------------------------------
+  12          /*  
+  13          /*
+  14          **/
+  15          
+  16          /* 包含头文件 -------------------------------------------------------*/
+  17          #include "uart.h"
+*** WARNING C318 IN LINE 17 OF User\uart.c: can't open file 'uart.h'
+  18          
+  19          /* 私有类型定义 -----------------------------------------------------*/
+  20          /* None. */
+  21          
+  22          /* 私有宏定义 -------------------------------------------------------*/
+  23          /* None. */
+  24          
+  25          /* 私有变量 ---------------------------------------------------------*/
+  26          /* None. */
+  27          
+  28          /* 扩展变量 ---------------------------------------------------------*/
+  29          /* None. */
+  30          
+  31          /* 私有函数原形 -----------------------------------------------------*/
+  32          /* None. */
+  33          
+  34          /* 函数体 -----------------------------------------------------------*/
+  35          /*
+  36           * 功能: 串口1初始化函数
+  37           * 参数: None
+  38           * 返回: None
+  39           * 说明: None
+  40           */
+  41          void Uart1_Init(void)           //9600bps@24.000MHz
+  42          {
+  43   1              SCON = 0x50;            //8位数据,可变波特率
+*** ERROR C202 IN LINE 43 OF User\uart.c: 'SCON': undefined identifier
+  44   1              AUXR |= 0x40;           //定时器时钟1T模式
+*** ERROR C202 IN LINE 44 OF User\uart.c: 'AUXR': undefined identifier
+  45   1              AUXR &= 0xFE;           //串口1选择定时器1为波特率发生器
+*** ERROR C202 IN LINE 45 OF User\uart.c: 'AUXR': undefined identifier
+  46   1              TMOD &= 0x0F;           //设置定时器模式
+*** ERROR C202 IN LINE 46 OF User\uart.c: 'TMOD': undefined identifier
+  47   1              TL1 = 0x8F;                     //设置定时初始值
+*** ERROR C202 IN LINE 47 OF User\uart.c: 'TL1': undefined identifier
+  48   1              TH1 = 0xFD;                     //设置定时初始值
+C51 COMPILER V9.60.0.0   UART                                                              06/08/2023 18:52:44 PAGE 2   
+
+*** ERROR C202 IN LINE 48 OF User\uart.c: 'TH1': undefined identifier
+  49   1              ET1 = 0;                                //禁止定时器%d中断
+*** ERROR C202 IN LINE 49 OF User\uart.c: 'ET1': undefined identifier
+  50   1              TR1 = 1;                                //定时器1开始计时
+*** ERROR C202 IN LINE 50 OF User\uart.c: 'TR1': undefined identifier
+  51   1      
+  52   1              
+  53   1              //直接使用系统自带的printf函数:特别注意需要置位TI=1，否则是无法发送的
+  54   1              ES = 1;
+*** ERROR C202 IN LINE 54 OF User\uart.c: 'ES': undefined identifier
+  55   1              TI = 1; //keil 调用stdio.h中printf函数前要置位。
+*** ERROR C202 IN LINE 55 OF User\uart.c: 'TI': undefined identifier
+  56   1      }
+  57          
+  58          void Uart1_Config( uint16_t baud )
+*** ERROR C141 IN LINE 58 OF User\uart.c: syntax error near 'baud', expected ')'
+  59          {
+  60   1          P_SW1 &=  ~0xc0;       //UART1 使用P30 P31口  默认
+*** ERROR C202 IN LINE 60 OF User\uart.c: 'P_SW1': undefined identifier
+  61   1      
+  62   1          /* 设置定时器1 */
+  63   1          TMOD &= 0x0F;               // 设定定时器1为16位自动重装方式
+*** ERROR C202 IN LINE 63 OF User\uart.c: 'TMOD': undefined identifier
+  64   1          TL1 = (65536 - CONF_FOSC / 4 / baud);       //定时器重载值拆分为高低字节
+*** ERROR C202 IN LINE 64 OF User\uart.c: 'TL1': undefined identifier
+  65   1          TH1 = ((65536 - CONF_FOSC / 4 / baud) >> 8);
+*** ERROR C202 IN LINE 65 OF User\uart.c: 'TH1': undefined identifier
+  66   1          ET1 = 0;                      // 禁止定时器1中断
+*** ERROR C202 IN LINE 66 OF User\uart.c: 'ET1': undefined identifier
+  67   1          TR1 = 1;                      // 启动定时器1
+*** ERROR C202 IN LINE 67 OF User\uart.c: 'TR1': undefined identifier
+  68   1       
+  69   1          /* 设置定串口 */
+  70   1          AUXR |= 0x40;               // 定时器1时钟为Fosc,即1T
+*** ERROR C202 IN LINE 70 OF User\uart.c: 'AUXR': undefined identifier
+  71   1          AUXR &= 0xFE;               // 串口1选择定时器1为波特率发生器
+*** ERROR C202 IN LINE 71 OF User\uart.c: 'AUXR': undefined identifier
+  72   1          SCON = 0x50;    // 8位可变波特率,REN=1（允许接受）
+*** ERROR C202 IN LINE 72 OF User\uart.c: 'SCON': undefined identifier
+  73   1      //    PS = 1 ;                    // 为了保证串口中断接收的数据不丢失，在初始化时必须设置，相当于把串口中断设置为最高优先
+             -级
+  74   1          ES = 1;             // 使能串口中断
+*** ERROR C202 IN LINE 74 OF User\uart.c: 'ES': undefined identifier
+  75   1      }
+  76          
+  77          /**
+  78           * 功能：串口发送一个字节函数，
+  79           * 参数：dat 要发送的字节数据。
+  80           * 返回：None.
+  81           * 说明：None.
+  82           */
+  83          void UART1_SendByte(uint8_t dat)
+*** ERROR C141 IN LINE 83 OF User\uart.c: syntax error near 'dat', expected ')'
+  84          {
+  85   1          SBUF = dat;
+*** ERROR C202 IN LINE 85 OF User\uart.c: 'SBUF': undefined identifier
+  86   1              while(!TI);
+*** ERROR C202 IN LINE 86 OF User\uart.c: 'TI': undefined identifier
+  87   1          TI = 0;
+*** ERROR C202 IN LINE 87 OF User\uart.c: 'TI': undefined identifier
+  88   1      }
+  89          /**
+C51 COMPILER V9.60.0.0   UART                                                              06/08/2023 18:52:44 PAGE 3   
+
+  90           * 功能：串口发送字符串函数
+  91           * 参数：str 要发送的字符串地址。
+  92           * 返回：None.
+  93           * 说明：None.
+  94           */
+  95          void UART1_SendString(const uint8_t *str)
+*** ERROR C141 IN LINE 95 OF User\uart.c: syntax error near '*', expected ')'
+  96          {
+  97   1          while(*str != '\0')
+*** ERROR C202 IN LINE 97 OF User\uart.c: 'str': undefined identifier
+  98   1          {
+  99   2              UART1_SendByte(*(str++));
+*** ERROR C202 IN LINE 99 OF User\uart.c: 'str': undefined identifier
+ 100   2          }
+ 101   1      }
+ 102          
+ 103          /**
+ 104           * 功能：串口发送数组函数
+ 105           * 参数：arry 要发送的数组地址。
+ 106           *       len  要发送的数组长度。
+ 107           * 返回：None.
+ 108           * 说明：None.
+ 109           */
+ 110          void UART1_SendArray(const uint8_t *arry, uint16_t len)
+*** ERROR C141 IN LINE 110 OF User\uart.c: syntax error near '*', expected ')'
+ 111          {
+ 112   1          while(len--)
+*** ERROR C202 IN LINE 112 OF User\uart.c: 'len': undefined identifier
+ 113   1          {
+ 114   2              UART1_SendByte(*(arry++));
+*** ERROR C202 IN LINE 114 OF User\uart.c: 'arry': undefined identifier
+ 115   2          }
+ 116   1      }
+ 117          /*
+ 118          在使用单片机开发过程中，很多情况下都希望能够通过串口输出一些调试信息。
+ 119          二种串口输出各种格式数据的方法：
+ 120          一.自己完全编程串口函数，进行格式化各种可能要使用的数据；
+ 121          二.比较简单的方法是使用库中的printf函数，这种方法虽然比较占用资源，但在很多情况下比较简单实用。
+ 122          在使用printf函数之前需要注意亮点，一是调用头文件stdio.h，二是重定义putchar发送单个字符函数。
+ 123          
+ 124          
+ 125          */
+ 126          /**
+ 127           * 功能：printf函数在格式化输出
+ 128           * 参数：str 要发送的字符串地址。
+ 129           * 返回：None.
+ 130           * 说明：None.
+ 131           */
+ 132          char putchar(char ch)
+ 133          {
+ 134   1          UART1_SendByte(ch);
+ 135   1          return ch;
+ 136   1      }
+ 137          
+ 138          //char putchar (char c)   
+ 139          //{        
+ 140          //    ES=0;        
+ 141          //    SBUF = c;        
+ 142          //    while(TI==0);        
+ 143          //    TI=0;        
+ 144          //    ES=1;        
+ 145          //    return 0;
+C51 COMPILER V9.60.0.0   UART                                                              06/08/2023 18:52:44 PAGE 4   
+
+ 146          //}
+ 147          
+ 148          
+ 149          
+ 150          
+ 151          /*>>>>>>>>>> (C) COPYRIGHT NBUFE <<<<<< >>>>>> END OF FILE <<<<<<<<<<*/
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  31 ERROR(S)
